@@ -15,5 +15,11 @@ jobs:
       - name: Setup TFLinter
         uses: terraform-linters/setup-tflint@v2
 
-      - name: hello-world
-        run: echo "Hello world!"
+      - name: Init
+        run: tflint --init
+
+      - name: Show version
+        run: tflint --version
+
+      - name: Check terraform scripts
+        run: tflint --modules
