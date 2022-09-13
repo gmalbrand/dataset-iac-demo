@@ -3,7 +3,7 @@ config {
   plugin_dir = "~/.tflint.d/plugins"
 
   module = true
-  force = false
+  force = true
   disabled_by_default = false
 }
 
