@@ -1,7 +1,5 @@
-on:
-  push:
-    branches:
-      - main
+name: IAC checks
+on: [push]
 
 jobs:
   print_hello:
