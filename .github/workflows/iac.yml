@@ -22,10 +22,12 @@ jobs:
         run: tflint --version
 
       - name: Check terraform scripts
-        run: tflint
+        shell: bash
+        run: tflint | sed "s/^\(.*\)/${GITHUB_REPOSITORY#*/}:\1/" > tflint.log
 
-      - name: Print repository name
-        run: echo "${GITHUB_REPOSITORY#*/}"
+      - name: Print output
+        shell: bash
+        run: cat tflint.log
 
       - name: Secret Test
         shell: bash
