@@ -23,3 +23,12 @@ jobs:
 
       - name: Check terraform scripts
         run: tflint
+
+      - name: Print repository name
+        run: echo "${GITHUB_REPOSITORY#*/}"
+
+      - name: Secret Test
+        shell: bash
+        env:
+          DATASET_API_KEY: ${{ secrets.DATASET_API_KEY }}
+        run: echo $DATASET_API_KEY
