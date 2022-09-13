@@ -8,11 +8,11 @@ jobs:
   tflint:
     runs-on:  ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      name:   Checkout source code
+    - uses: actions/checkout@v2
+    name:   Checkout source code
 
-      - uses: terraform-linters/setup-tflint@v2
-      name:   Setup TFLint
+    - uses: terraform-linters/setup-tflint@v2
+    name:   Setup TFLint
 
-      - name: Show version
-      run:    tflint --version
+    - name: Show version
+    run:    tflint --version
