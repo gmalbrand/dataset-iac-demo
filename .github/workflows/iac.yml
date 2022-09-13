@@ -12,5 +12,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
 
+      - name: Setup TFLinter
+        uses: terraform-linters/setup-tflint
+
       - name: hello-world
         run: echo "Hello world!"
