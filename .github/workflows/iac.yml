@@ -1,4 +1,4 @@
-name:         IAC checks
+name: IAC checks
 on:
   push:
     branches:
@@ -6,13 +6,11 @@ on:
 
 jobs:
   tflint:
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    name:   Checkout source code
+      - name: Check out
+        uses: actions/checkout@v3
 
-    - uses: terraform-linters/setup-tflint@v2
-    name:   Setup TFLint
-
-    - name: Show version
-    run:    tflint --version
+      - name: hello-world
+        run: echo "Hello world!"
