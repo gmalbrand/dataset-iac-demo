@@ -38,3 +38,11 @@ jobs:
           --data-binary @tflint.log \
           -X POST "https://app.scalyr.com/api/uploadLogs?parser=tflint_compact&logfile=tflint.log&host=github"
 ```
+
+Queries
+
+```
+logfile='tflint.json'
+| let file_url= "https://github.com/" + repository + "/blob/" + sha + "/" + range_filename + "#L" + range_start_line  + "-#L" + range_end_line
+| group counts=count() by file_url
+```
