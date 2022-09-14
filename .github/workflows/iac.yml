@@ -31,7 +31,7 @@ jobs:
           jq -c --arg value "${GITHUB_SERVER_URL}" '.+{"server_url": $value}' | \
           jq -c --arg value "${GITHUB_OWNER}" '.+{"owner": $value}' | \
           jq -c --arg value "${GITHUB_SHA}" '.+{"sha": $value}' | \
-          jq -c --arg value "${GITHUB_REPOSITORY}" '.+{"repository": $value}' | \
+          jq -c --arg value "${GITHUB_REPOSITORY}" '.+{"repository": $value}' \
           > tflint.json
 
       - name: Send report to dataset output
