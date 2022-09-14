@@ -25,8 +25,13 @@ jobs:
         shell: bash
         run: |
           tflint -f json | \
-          jq -c --arg repo "${GITHUB_REPOSITORY}" \ 'del(..|.callers?)|.issues[]?,.errors[]?|.+{"repo":$repo}'| \
-          jq -c '[leaf_paths as $path | {"key": $path | join("_"), "value": getpath($path)}] | from_entries' \
+          jq -c 'del(..|.callers?)|.issues[]?,.errors[]?'| \
+          jq -c '[leaf_paths as $path | {"key": $path | join("_"), "value": getpath($path)}] | from_entries' |
+          jq -c --arg value "${GITHUB_ACTOR}" '.+{"actor": $value}' | \
+          jq -c --arg value "${GITHUB_SERVER_URL}" '.+{"server_url": $value}' | \
+          jq -c --arg value "${GITHUB_OWNER}" '.+{"owner": $value}' | \
+          jq -c --arg value "${GITHUB_SHA}" '.+{"sha": $value}' | \
+          jq -c --arg value "${GITHUB_REPOSITORY}" '.+{"repository": $value}' | \
           > tflint.json
 
       - name: Send report to dataset output
@@ -38,7 +43,3 @@ jobs:
           -H "Authorization: Bearer $DATASET_API_KEY" \
           --data-binary @tflint.json \
           -X POST "https://app.scalyr.com/api/uploadLogs?parser=json&logfile=tflint.json&host=github"
-
-      - name: Print env variables
-        shell: bash
-        run: printenv
