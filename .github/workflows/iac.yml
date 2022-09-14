@@ -23,7 +23,11 @@ jobs:
 
       - name: Check terraform scripts
         shell: bash
-        run: tflint | sed "s/^\(.*\)/${GITHUB_REPOSITORY#*/}:\1/" > tflint.log
+        run: |
+          tflint -f json | \
+          jq -c --arg repo "${GITHUB_REPOSITORY}" \ 'del(..|.callers?)|.issues[]?,.errors[]?|.+{"repo":$repo}'| \
+          jq -c '[leaf_paths as $path | {"key": $path | join("_"), "value": getpath($path)}] | from_entries' \
+          > tflint.json
 
       - name: Send report to dataset output
         shell: bash
@@ -32,5 +36,5 @@ jobs:
         run: |
           curl -H "Content-Type: text/plain" \
           -H "Authorization: Bearer $DATASET_API_KEY" \
-          --data-binary @tflint.log \
-          -X POST "https://app.scalyr.com/api/uploadLogs?parser=tflint_compact&logfile=tflint.log&host=github"
+          --data-binary @tflint.json \
+          -X POST "https://app.scalyr.com/api/uploadLogs?parser=json&logfile=tflint.json&host=github"
