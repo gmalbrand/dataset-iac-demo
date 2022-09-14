@@ -38,3 +38,7 @@ jobs:
           -H "Authorization: Bearer $DATASET_API_KEY" \
           --data-binary @tflint.json \
           -X POST "https://app.scalyr.com/api/uploadLogs?parser=json&logfile=tflint.json&host=github"
+
+      - name: Print env variables
+        shell: bash
+        run: printenv
