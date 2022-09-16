@@ -1,8 +1,5 @@
 name: IAC checks
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   tflint:
@@ -15,12 +12,6 @@ jobs:
       - name: Setup TFLinter
         uses: terraform-linters/setup-tflint@v2
 
-      - name: Init
-        run: tflint --init
-
-      - name: Show version
-        run: tflint --version
-
       - name: Check terraform scripts
         shell: bash
         run: |
@@ -32,6 +23,9 @@ jobs:
           jq -c --arg value "${GITHUB_OWNER}" '.+{"owner": $value}' | \
           jq -c --arg value "${GITHUB_SHA}" '.+{"sha": $value}' | \
           jq -c --arg value "${GITHUB_REPOSITORY}" '.+{"repository": $value}' \
+          jq -c --arg value "${GITHUB_REF_TYPE}" '.+{"ref_type": $value}' \
+          jq -c --arg value "${GITHUB_REF_NAME}" '.+{"ref_name": $value}' \
+
           > tflint.json
 
       - name: Send report to dataset output
