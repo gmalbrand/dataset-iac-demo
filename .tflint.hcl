@@ -1,5 +1,5 @@
 config {
-  format = "compact"
+  format = "json"
   plugin_dir = "~/.tflint.d/plugins"
 
   module = true
