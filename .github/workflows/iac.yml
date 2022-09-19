@@ -11,7 +11,7 @@ jobs:
 
       - name: Setup TFLinter
         uses: terraform-linters/setup-tflint@v2
-
+        
       - name: Init
         run: tflint --init
 
