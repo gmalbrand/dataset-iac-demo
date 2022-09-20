@@ -23,7 +23,7 @@ jobs:
           jq -c '[leaf_paths as $path | {"key": $path | join("_"), "value": getpath($path)}] | from_entries' |
           jq -c --arg value "${GITHUB_ACTOR}" '.+{"actor": $value}' | \
           jq -c --arg value "${GITHUB_SERVER_URL}" '.+{"server_url": $value}' | \
-          jq -c --arg value "${GITHUB_OWNER}" '.+{"owner": $value}' | \
+          jq -c --arg value "${GITHUB_REPOSITORY_OWNER}" '.+{"owner": $value}' | \
           jq -c --arg value "${GITHUB_SHA}" '.+{"sha": $value}' | \
           jq -c --arg value "${GITHUB_REPOSITORY#*/}" '.+{"repository": $value}' | \
           jq -c --arg value "${GITHUB_REF_TYPE}" '.+{"ref_type": $value}' | \
