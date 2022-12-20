@@ -27,3 +27,6 @@ variable "instance_number" {
   type        = number
   default     = 1
 }
+
+variable "dummy_var" {
+}
